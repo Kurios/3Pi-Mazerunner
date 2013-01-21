@@ -1,13 +1,13 @@
 //================================================================================================
 // define states here, do not repeat characters 
 //================================================================================================
-final char START = 'S'; // always needs to be defined !
-final char FOLLOW = 'F';
-final char ENTER = 'E';
-final char TURN_LEFT = 'L';
-final char TURN_RIGHT = 'R';
-final char GOAL = 'G';
-final char TURN_AROUND = 'U';
+const char START = 'S'; // always needs to be defined !
+const char FOLLOW = 'F';
+const char ENTER = 'E';
+const char TURN_LEFT = 'L';
+const char TURN_RIGHT = 'R';
+const char GOAL = 'G';
+const char TURN_AROUND = 'U';
 
 int current = 0; // current position in path
 RobotDFS botAI = new RobotDFS();
