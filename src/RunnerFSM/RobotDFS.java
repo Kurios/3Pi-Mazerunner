@@ -1,3 +1,4 @@
+package RunnerFSM;
 
 public class RobotDFS {
 
@@ -41,7 +42,20 @@ public class RobotDFS {
 		}
 	}
 	
-	public string return 
+	public String getShortestPath()
+	{
+		String ret = "";
+		DFSNode trace = current;
+		while(trace.parent != null)
+		{
+			if (trace == trace.parent.left ) ret = ret  + " L";
+			else if (trace == trace.parent.right ) ret = ret + " R";
+			else if (trace == trace.parent.straight ) ret = ret + " F";
+			else ret =  ret + " OMG FAIL! ";
+			trace = trace.parent;
+		}
+		return ret;
+	}
 	
 	private class DFSNode {
 		final static byte VISTED_LEFT = 0x1;
