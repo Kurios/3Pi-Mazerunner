@@ -1,4 +1,4 @@
-package RunnerFSM;
+
 class Point2 {
   double x_, y_;
   Point2(double x, double y) {

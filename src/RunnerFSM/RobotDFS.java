@@ -1,5 +1,3 @@
-package RunnerFSM;
-
 public class RobotDFS {
 
 	DFSNode current;
@@ -17,17 +15,17 @@ public class RobotDFS {
 	
 	public char getNextMove()
 	{
-		if(current.left != null && ((current.visited & DFSNode.VISTED_LEFT) != 0 )) 
+		if(current.left != null && ((current.visited & DFSNode.VISTED_LEFT) == 0 )) 
 		{
 			current.visited = (byte) (current.visited | DFSNode.VISTED_LEFT) ;
 			current = current.left;
 			return 'L';
-		}else if(current.right != null && ((current.visited & DFSNode.VISTED_RIGHT) != 0 )) 
+		}else if(current.right != null && ((current.visited & DFSNode.VISTED_RIGHT) == 0 )) 
 		{
 			current.visited = (byte) (current.visited | DFSNode.VISTED_RIGHT) ;
 			current = current.right;
 			return 'R';
-		}else if(current.straight != null && ((current.visited & DFSNode.VISTED_STRAIGHT) != 0 )) 
+		}else if(current.straight != null && ((current.visited & DFSNode.VISTED_STRAIGHT) == 0 )) 
 		{
 			current.visited = (byte) (current.visited | DFSNode.VISTED_STRAIGHT) ;
 			current = current.straight;

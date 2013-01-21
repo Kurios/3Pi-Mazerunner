@@ -1,4 +1,3 @@
-package RunnerFSM;
 // Unit tests
 
 class Tests {

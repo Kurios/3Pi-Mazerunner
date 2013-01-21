@@ -80,6 +80,14 @@ int intersectionType() {
   else return FOUND_NONE;
 }
 
+boolean[] getTurns() {
+	int[] sensors = readSensors();
+	boolean[] ret = {false, false, false};
+	if( sensors[0] > 100 ) ret[0] = true;
+	if( sensors[4] > 100 ) ret[2] = true;
+	return ret;
+}
+
 // print a message on console or LCD
 void printMessage(String message) {
   println(message);

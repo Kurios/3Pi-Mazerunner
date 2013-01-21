@@ -1,4 +1,3 @@
-package RunnerFSM;
 /**
  * A 2D twist (2D linear and 1D angular velocity)
  */
