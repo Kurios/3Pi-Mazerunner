@@ -4,14 +4,14 @@ public class RobotDFS {
 	DFSNode current;
 	
 	public RobotDFS(){
-		current = new DFSNode();
-		current.straight = new DFSNode();
+		current = new DFSNode(null);
+		current.straight = new DFSNode(current);
 	}
 	
 	public void addNodes(boolean left, boolean straight, boolean right){
-		if(left)	current.left = new DFSNode();
-		if(right) 	current.right = new DFSNode();
-		if(straight)current.straight = new DFSNode();
+		if(left)	current.left = new DFSNode(current);
+		if(right) 	current.right = new DFSNode(current);
+		if(straight)current.straight = new DFSNode(current);
 	}
 	
 	public char getNextMove()
@@ -19,9 +19,29 @@ public class RobotDFS {
 		if(current.left != null && ((current.visited & DFSNode.VISTED_LEFT) != 0 )) 
 		{
 			current.visited = (byte) (current.visited | DFSNode.VISTED_LEFT) ;
+			current = current.left;
 			return 'L';
+		}else if(current.right != null && ((current.visited & DFSNode.VISTED_RIGHT) != 0 )) 
+		{
+			current.visited = (byte) (current.visited | DFSNode.VISTED_RIGHT) ;
+			current = current.right;
+			return 'R';
+		}else if(current.straight != null && ((current.visited & DFSNode.VISTED_STRAIGHT) != 0 )) 
+		{
+			current.visited = (byte) (current.visited | DFSNode.VISTED_STRAIGHT) ;
+			current = current.straight;
+			return 'F';
+		}else {
+			if( current.parent != null )
+			{
+				current = current.parent;
+				return 'U';
+			}
+			return '!';
 		}
 	}
+	
+	public string return 
 	
 	private class DFSNode {
 		final static byte VISTED_LEFT = 0x1;
@@ -32,6 +52,11 @@ public class RobotDFS {
 		DFSNode right = null;
 		DFSNode left = null;
 		DFSNode parent = null;
+		
+		public DFSNode(DFSNode parent)
+		{
+			this.parent = parent;
+		}
 	}
 }
 
