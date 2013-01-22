@@ -19,6 +19,7 @@ void switchToState(char state) {
   // uncomment this to debug on Pololu
   //waitForButtonPress();
   timer_ = millis();
+  //pause = true;
 }
 
 // do one time-step

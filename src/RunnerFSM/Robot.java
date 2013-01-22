@@ -55,6 +55,7 @@ class Robot {
   // set motor speeds, ignoring dynamics/acceleration phase
   final int MAX_RPM=800; // tuned to be similar to 3pi
   void setSpeeds(int left, int right) {
+   // System.out.print(" " + left + " , " + right);
     double S = (MAX_RPM/60)*2*Math.PI/255;
     phiL_ = S*(double)left;
     phiR_ = S*(double)right;

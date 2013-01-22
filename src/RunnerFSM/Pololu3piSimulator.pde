@@ -6,6 +6,7 @@ double dt = 1.0/(double)fps;
 double  s_ = 6/INCH; // scale, in pixels/meter
 int u0_ = 100, v0_ = 100; // image coordinate of 0,0
 int lastValue_ = 2000; // temporary in readline
+boolean pause = false;
 Tests tests; // static class
 
 // Variables initialized in initialize
@@ -19,7 +20,7 @@ void initialize3piSimulator () {
   // run unit tests first
   tests.run();
 
-  maze_ = loadImage("SimpleCourse.png");
+  maze_ = loadImage("maze2.png");
   maze_.filter(BLUR, 1);
 }
 
@@ -105,8 +106,13 @@ void update() {
   drawRobot();
   drawSensors();
   drawMotorSpeeds();
-
+  
+  if(keyPressed) pause = !pause;
+  
+  if(!pause)
+  {
   // Update the robot for the next time step
   robot.update(dt);
+  }
 }
 

@@ -51,6 +51,23 @@ final int INTERSECTION = 1; // Found an intersection, can also be used for goal 
 final int STRAIGHT = 2; // Just a straight line.
 final int UNKNOWN = 3; // Just a straight line.
 
+boolean isOnLine()
+{
+  int[] sensors = readSensors();
+  if(sensors[0] > 100) return false;
+  if(sensors[4] > 100) return false;
+  if(sensors[1] >= sensors[2]) return false;
+  if(sensors[3] > sensors[2]) return false;
+  return true;
+}
+boolean isIntersection()
+{
+  int[] sensors = readSensors();
+  if(sensors[0] > 50) return true;
+  if(sensors[4] > 50) return true;
+  //if(sensors[2] < 50) return true;
+  return false;
+  }
 // Helper routine to examine line 
 int lineType() {
   int[] sensors = readSensors();
@@ -83,8 +100,8 @@ int intersectionType() {
 boolean[] getTurns() {
 	int[] sensors = readSensors();
 	boolean[] ret = {false, false, false};
-	if( sensors[0] > 100 ) ret[0] = true;
-	if( sensors[4] > 100 ) ret[2] = true;
+	if( sensors[0] > 50 ) ret[0] = true;
+	if( sensors[4] > 50 ) ret[2] = true;
 	return ret;
 }
 
@@ -138,12 +155,12 @@ void followPID(int switched)
   // the sharpness of the turn.  You can adjust the constants by which
   // the error, integral_, and derivative terms are multiplied to
   // improve performance.
-  //  int power_difference = error/20 + integral_/10000 + derivative*3/2; // Pololu originals
-  int power_difference = error/100 + integral_/50000 + derivative*3/10;
+    int power_difference = error/10 + integral_/10000 + derivative*3/2; // Pololu originals
+  //int power_difference = error/100 + integral_/50000 + derivative*3/10;
 
   // Compute the actual motor settings.  We never set either motor
   // to a negative value.
-  int maximum = 80;
+  int maximum = 10;
   if (power_difference > maximum)
     power_difference = maximum;
   if (power_difference < -maximum)

@@ -12,6 +12,7 @@ final char ESCAPE = '\\';
 
 int current = 0; // current position in path
 RobotDFS botAI = new RobotDFS();
+boolean changing = false;
 //================================================================================================
 // Check for triggers that change state, no motor commands here
 //================================================================================================
@@ -26,7 +27,15 @@ void checkTriggers(int elapsed) {
 
   case FOLLOW:
     // allow some time to get back on the line
-    if (elapsed > 30) {    
+    if  ( changing )
+    {
+    	if ( elapsed > 170 )
+    	{
+    	  if ((lineType()==INTERSECTION) || lineType()==DEAD_END) switchToState(ENTER);
+    	  changing = false;
+    	 }
+    }
+    else if (elapsed > 30) {    
       if ((lineType()==INTERSECTION) || lineType()==DEAD_END) switchToState(ENTER);
     }
     break;
@@ -44,16 +53,20 @@ void checkTriggers(int elapsed) {
       print(directions[1] + " ");
       print(directions[2]);
       switch(direction) {
-      case 'L': 
+      case 'L':
+        changing = true; 
         switchToState(TURN_LEFT); 
         break;
-      case 'F': 
+      case 'F':
+      	changing = true; 
         switchToState(FOLLOW); 
         break;
-      case 'R': 
+      case 'R':
+      	changing = true; 
         switchToState(TURN_RIGHT); 
         break;
       case 'U':
+      	changing = true;
         switchToState(TURN_AROUND);
         break;
       case 'G': 
