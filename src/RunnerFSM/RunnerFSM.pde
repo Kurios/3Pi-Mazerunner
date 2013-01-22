@@ -186,7 +186,10 @@ void executeBehavior(int elapsed) {
     break;
     
   case GOAL:  
-    if (switched_==1) setSpeeds(0, 0);
+    if (switched_==1){
+	setSpeeds(0, 0)
+	print("Found Goal " + nextMove + " , path home is:" + botAI.getShortestPath() + " Sensors Reported: " +directions[0] +", " +(lineType()!=DEAD_END)+", "+directions[2]+", state switched to: ");
+    }
    
    case PANIC:
      if (switched_==1) setSpeeds(255,255);

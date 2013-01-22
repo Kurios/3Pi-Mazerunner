@@ -15,6 +15,7 @@
 #include <OrangutanLCD.h>
 #include <OrangutanPushbuttons.h>
 #include <OrangutanBuzzer.h>
+#include <RobotDFS.h>
 
 Pololu3pi robot;
 unsigned int sensors[5]; // an array to hold sensor values
@@ -26,8 +27,8 @@ unsigned int sensors[5]; // an array to hold sensor values
 
 // Introductory messages.  The "PROGMEM" identifier causes the data to
 // go into program space.
-const char welcome_line1[] PROGMEM = "Georgia Tech";
-const char welcome_line2[] PROGMEM = "CS 3630";
+const char* welcome_line1 PROGMEM = "Georgia Tech";
+const char* welcome_line2 PROGMEM = "CS 3630";
 
 // A couple of simple tunes, stored in program space.
 const char welcome[] PROGMEM = ">g32>>c32";
@@ -183,5 +184,6 @@ void initialize3pi()
   OrangutanBuzzer::playFromProgramSpace(HellOfAnEngineer);
   while(OrangutanBuzzer::isPlaying());
 }
+
 
 

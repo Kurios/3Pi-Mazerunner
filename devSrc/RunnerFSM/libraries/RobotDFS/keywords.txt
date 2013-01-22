@@ -1,0 +1,18 @@
+#######################################
+# Syntax Coloring Map RobotDFS
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+DFSNode	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+addNodes	KEYWORD2
+getNextMove	KEYWORD2
+getShortestPath	KEYWORD2	
+

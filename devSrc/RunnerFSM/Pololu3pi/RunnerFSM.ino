@@ -14,10 +14,10 @@ final char PANIC = '!';
 final char MOVEFORWARD = 'M';
 
 int current = 0; // current position in path
-RobotDFS botAI = new RobotDFS();
+RobotDFS::RobotDFS botAI; // = new RobotDFS::RobotDFS();
 boolean changing = false;
 char nextMove = '0';
-boolean[] directions = {false,false,false};
+boolean directions[3] = {false,false,false};
 boolean turnCompleted =true;
 char lastMove = '0';
 
@@ -31,12 +31,12 @@ void checkTriggers(int elapsed) {
   //while(key != 'a' )
   //{
   //}
-  int sensors[] = readSensors();
+  unsigned int* sensors = readSensors();
   switch(state_) {
 
   case START:  
     // get out of start circle
-    print(switched_);
+    //print(switched_);
     if ( sensors[4] < 200 && sensors[0] < 200 ) switchToState(FOLLOW);
     //println(" "+sensors[0]+" "+sensors[1]+" "+sensors[2]+" "+sensors[3]+" "+sensors[4]); 
     setSpeeds(10, 10);
@@ -68,9 +68,12 @@ void checkTriggers(int elapsed) {
     // after we're GOAL, decide which way to turn
     //print(nextMove);
     if (elapsed > 10 && nextMove == '0') {
-      directions = getTurns();
-      print(nextMove);
-      print(":"+elapsed + " , ");
+      boolean * turns = getTurns();
+      directions[0] = turns[0];
+      directions[1] = turns[1];
+      directions[2] = turns[2];
+      //print(nextMove);
+      //print(":"+elapsed + " , ");
       switchToState(MOVEFORWARD);
     }
     break;
@@ -92,7 +95,7 @@ void checkTriggers(int elapsed) {
       if(lastMove != 'U')
          botAI.addNodes(directions[0],lineType()!=DEAD_END,directions[2]);
       nextMove = botAI.getNextMove(); 
-      print("Robot AI going to " + nextMove + " , path home is:" + botAI.getShortestPath() + " Sensors Reported: " +directions[0] +", " +(lineType()!=DEAD_END)+", "+directions[2]+", state switched to: ");
+      //print("Robot AI going to " + nextMove + " , path home is:" + botAI.getShortestPath() + " Sensors Reported: " +directions[0] +", " +(lineType()!=DEAD_END)+", "+directions[2]+", state switched to: ");
       switch(nextMove) {
       case 'L':
         changing = true; 
@@ -186,7 +189,10 @@ void executeBehavior(int elapsed) {
     break;
     
   case GOAL:  
-    if (switched_==1) setSpeeds(0, 0);
+    if (switched_==1) {
+      OrangutanLCD::print(botAI.getShortestPath());
+      setSpeeds(0, 0);
+    }
    
    case PANIC:
      if (switched_==1) setSpeeds(255,255);

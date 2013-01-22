@@ -11,6 +11,42 @@ unsigned int readLine() {
   return robot.readLine(sensors, IR_EMITTERS_ON);
 }
 
+unsigned int* readSensors()
+{
+   robot.readLine(sensors, IR_EMITTERS_ON);
+   return sensors;
+}
+
+boolean isOnLine()
+{
+  unsigned int* sensors = readSensors();
+  if(sensors[0] > 100) return false;
+  if(sensors[4] > 100) return false;
+  if(sensors[1] >= sensors[2]) return false;
+  if(sensors[3] > sensors[2]) return false;
+  return true;
+}
+
+boolean isIntersection()
+{
+  unsigned int* sensors = readSensors();
+  if(sensors[0] > 50) return true;
+  if(sensors[4] > 50) return true;
+  //if(sensors[2] < 50) return true;
+  return false;
+ }
+  
+boolean* getTurns() {
+	unsigned int* sensors = readSensors();
+	boolean ret[3];
+        ret[0] = false;
+        ret[1] = false;
+        ret[2] = false;
+	if( sensors[0] > 50 ) ret[0] = true;
+	if( sensors[4] > 50 ) ret[2] = true;
+	return ret;
+}
+  
 // Set the wheel speeds, with 255,255 1m/s !
 void setSpeeds(int left, int right) {
   OrangutanMotors::setSpeeds(left,right);
@@ -137,9 +173,10 @@ int pathLength_ = 0; // the length of the path_
 // Displays the current path_ on the LCD, using two rows if necessary.
 void displayPath()
 {
-  OrangutanLCD::clear();
-  for (int i=0;i<pathLength_;i++) OrangutanLCD::print(path_[i]);
+  //OrangutanLCD::clear();
+  //for (int i=0;i<pathLength_;i++) OrangutanLCD::print(path_[i]);
 }
+
 
 
 
